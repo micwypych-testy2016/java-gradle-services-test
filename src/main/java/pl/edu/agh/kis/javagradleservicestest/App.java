@@ -8,10 +8,10 @@ import pl.edu.agh.kis.javagradleservicestest.messagesapi.MailServiceImpl;
 public class App {
 
 	public static void main(String[] args) {
-		//jatesty.testy@interia.pl
-		//testytesty_1
+		final String USER_NAME =  "jatesty.testy";
+		final String PASS = "testytesty_1";
 		new HashMap<String,String>().equals(null);
-		MailService mailService = new MailServiceImpl("smtp.gmail.com", (short) 465, "username", "password");
+		MailService mailService = new MailServiceImpl("poczta.interia.pl", (short) 587, USER_NAME+"@interia.pl", USER_NAME, PASS);
 		mailService.sendMessage("test@mail.com","Hello JAVA","Hello, how are you Pete!");
 		
 	}

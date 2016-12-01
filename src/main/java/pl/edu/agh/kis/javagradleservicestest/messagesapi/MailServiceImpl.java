@@ -17,14 +17,16 @@ public class MailServiceImpl implements MailService {
 	private String mailServerHostName;
 	private short portService;
 	private Authenticator auth;
+	private String accountName;
 	
 	
 	
-	public MailServiceImpl(String mailServerHostName, short portService, String accountName, String password) {
+	public MailServiceImpl(String mailServerHostName, short portService, String accountName, String user,String password) {
 		super();
 		this.mailServerHostName = mailServerHostName;
 		this.portService = portService;
-		auth = new DefaultAuthenticator(accountName, password);
+		this.accountName = accountName;
+		auth = new DefaultAuthenticator(user, password);
 	}
 
 	@Override
@@ -32,10 +34,12 @@ public class MailServiceImpl implements MailService {
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(mailServerHostName);
+			System.out.println("port: "+portService);
 			email.setSmtpPort(portService);
+			email.setSslSmtpPort(""+portService);
 			email.setAuthenticator(auth);
-			email.setSSLOnConnect(true);
-			email.setFrom(mailServerHostName);
+			email.setStartTLSEnabled(true);
+			email.setFrom(accountName);
 			
 			email.setSubject(title);
 			email.setMsg(message);
