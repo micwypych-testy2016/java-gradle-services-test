@@ -9,10 +9,48 @@ public class MailList {
 	private List<User> users;
 	private String admin;
 	
-	private static class User {
+	public MailList(MailService mailSrv, List<User> users, String admin) {
+		super();
+		this.mailSrv = mailSrv;
+		this.users = users;
+		this.admin = admin;
+	}
+
+    static class User {
 		public final String mail;
 		public String status;
 		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+			result = prime * result + ((status == null) ? 0 : status.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			User other = (User) obj;
+			if (mail == null) {
+				if (other.mail != null)
+					return false;
+			} else if (!mail.equals(other.mail))
+				return false;
+			if (status == null) {
+				if (other.status != null)
+					return false;
+			} else if (!status.equals(other.status))
+				return false;
+			return true;
+		}
+
 		public User(String mail,String status) {
 			this.mail = mail;
 			this.status = status;
